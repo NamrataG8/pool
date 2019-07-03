@@ -11,7 +11,6 @@ void* enq_worker(void *data)
 		enqueue(q,task_to_perform,NULL);
 		sleep(2);
 	}
-
 }
 
 pthread_t enq_funct(qu_t *q)
@@ -30,7 +29,6 @@ pthread_t enq_funct(qu_t *q)
 	}
 
 	sleep(3);
-	
 }
 
 
