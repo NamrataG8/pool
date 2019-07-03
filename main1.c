@@ -4,47 +4,47 @@
 #include<pthread.h>
 #include"mythreads.h"
 
-void* enq_worker(void *data)
+
+void* deq_worker(void *data)
 {
+	fnc_t fn;
 	qu_t *q=(qu_t*)data;
 	while(1)
 	{
-		enqueue(q,task_to_perform,NULL);
+
+		fn=dequeue(q);
+
+		if(fn.fvar==NULL)
+		{
+			printf("Not pointing to any function\n");
+		}
+		else
+		{
+			fn.fvar(fn.args);//
+		}
 		sleep(2);
 	}
 }
 void main()
 {
-
 	qu_t *q;
 	q=(qu_t*)malloc(sizeof(qu_t));
 	init(q);
 	int ret;
-	pthread_t t1,t2;
-
-	printf("Program preforming enqueing and dequeing\n");
+	pthread_t t1;
 	printf("Enqueuing\n");
-	ret=pthread_create(&t1,NULL,&enq_worker,q);
-	if(ret!=0)
-	{
-		printf("Enqueue thread fails\n");
-	}
-	else
-	{
 
-		printf("Enqueue thread created successfully\n");
-	}
+	t1=enq_funct(q);
 
-	printf("Dequeuing\n");
-	t2=deq_funct(q);
-	
-//	pthread_join(t1,NULL);
-//	pthread_join(t2,NULL);
+	//      pthread_join(t1,NULL);
+	//      pthread_join(t2,NULL);
 	while(1)
-		sleep(60);
-	free(q);
-	
+	{
+		deq_worker(q);
 
+	}
+
+	free(q);
 }
 
 
