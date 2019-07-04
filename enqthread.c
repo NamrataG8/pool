@@ -27,8 +27,7 @@ pthread_t enq_funct(qu_t *q)
 	{
 		printf("Thread created successfully\n");
 	}
-
-	sleep(3);
+        sleep(3);
 }
 
 
