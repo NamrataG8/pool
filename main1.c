@@ -2,42 +2,49 @@
 #include<stdlib.h>
 #include<unistd.h>
 #include<pthread.h>
+//#include"operation.h"
+//#include"queue.h"
 #include"mythreads.h"
 
-/*void init_pool()
-  {
-  pool p;
-  p=(pool*)malloc(sizeof(pool));
-//qu_t *q;
-init_poolque(&p.queue);
-
-
-
+/*void task_to_preform(void *data)
+{
+	printf("Operation\n");
 }*/
 
-
-void* deq_worker(void *data)
+void* enq_worker(void* data)
 {
+        qu_t *q=(qu_t*)data;
+        while(1)
+        {
+                enqueue(q,task_to_perform,NULL);
+                sleep(2);
+        }
+}
 
-	//pool p=(pool*)data;
+
+void main()
+{
 	fnc_t fn;
-	pool p;
-	qu_t *q=(qu_t*)data;
+//	fn=(fnc_t*)malloc(sizeof(fnc_t));
+	qu_t *q;
+	q=(qu_t*)malloc(sizeof(qu_t));
+	init_que(q);
+	int ret;
+	pthread_t thread1;
+
+	ret=pthread_create(&thread1,NULL,&enq_worker,q);
+	if(ret!=0)
+	{
+		printf("Thread creation fails\n");
+	}
+	else
+	{
+		printf("Thread created successfully\n");
+	}
+
 	while(1)
 	{
-
-		printf("Deq acquiring the lock\n");
-		pthread_mutex_lock(&(p.lock));
-
-
-
-		printf("Deq Waiting on conditional variable\n");
-
-		while(q->front == NULL)
-			pthread_cond_wait(&(p.cond1),&(p.lock));
-
 		fn=dequeue(q);
-
 		if(fn.fvar==NULL)
 		{
 			printf("Not pointing to any function\n");
@@ -46,37 +53,9 @@ void* deq_worker(void *data)
 		{
 			fn.fvar(fn.args);
 		}
-		printf("Deq releasing lock\n");
-		pthread_mutex_unlock(&(p.lock));
-		//		sleep(2);
+		sleep(2);
 	}
-}
-void main()
-{
-	qu_t *q;
-	q=(qu_t*)malloc(sizeof(qu_t));
-	init_que(q);
-	//	init_pool();
-
-	pthread_t t1;
-	//init_pool();
-	pool p;
-	printf("Enqueuing\n");
-
-	//	t1=enq_funct(&p.queue); //submitting enqueu function to the pool queue
-	t1=enq_funct(q);
-
-
-	//pthread_join(t1,NULL);
-	//pthread_join(t2,NULL);
-
-	deq_worker(q);
-
-	//	printf("Deq releasing lock\n");
-	//	pthread_mutex_unlock(&(pool->lock));
-	pthread_join(t1,NULL);
-
-	//	free(q);
+		
 }
 
 
