@@ -5,11 +5,11 @@
 #include"mythreads.h"
 
 /*void init_pool()
-{
-	pool p;
-	p=(pool*)malloc(sizeof(pool));
-	//qu_t *q;
-	init_poolque(&p.queue);
+  {
+  pool p;
+  p=(pool*)malloc(sizeof(pool));
+//qu_t *q;
+init_poolque(&p.queue);
 
 
 
@@ -29,10 +29,12 @@ void* deq_worker(void *data)
 		printf("Deq acquiring the lock\n");
 		pthread_mutex_lock(&(p.lock));
 
+
+
 		printf("Deq Waiting on conditional variable\n");
-		pthread_cond_wait(&(p.cond1),&(p.lock));
-//		if(q!=NULL)
-//		{
+
+		while(q->front == NULL)
+			pthread_cond_wait(&(p.cond1),&(p.lock));
 
 		fn=dequeue(q);
 
@@ -44,10 +46,9 @@ void* deq_worker(void *data)
 		{
 			fn.fvar(fn.args);
 		}
-//		}
 		printf("Deq releasing lock\n");
-                pthread_mutex_unlock(&(p.lock));
-//		sleep(2);
+		pthread_mutex_unlock(&(p.lock));
+		//		sleep(2);
 	}
 }
 void main()
@@ -55,14 +56,14 @@ void main()
 	qu_t *q;
 	q=(qu_t*)malloc(sizeof(qu_t));
 	init_que(q);
-//	init_pool();
+	//	init_pool();
 
 	pthread_t t1;
 	//init_pool();
 	pool p;
 	printf("Enqueuing\n");
-	
-//	t1=enq_funct(&p.queue); //submitting enqueu function to the pool queue
+
+	//	t1=enq_funct(&p.queue); //submitting enqueu function to the pool queue
 	t1=enq_funct(q);
 
 
@@ -71,11 +72,11 @@ void main()
 
 	deq_worker(q);
 
-//	printf("Deq releasing lock\n");
-//	pthread_mutex_unlock(&(pool->lock));
+	//	printf("Deq releasing lock\n");
+	//	pthread_mutex_unlock(&(pool->lock));
 	pthread_join(t1,NULL);
 
-//	free(q);
+	//	free(q);
 }
 
 

@@ -12,25 +12,23 @@ void* enq_worker(void *data)
 	qu_t *q=(qu_t*)data;
 	pool p;
 
-	printf("Enq acquiring the lock\n");
-	pthread_mutex_lock(&(p.lock));
 
 	while(1)
 	{
-//		if(pool->queue->front==NULL)
-//		{
-		
+		 printf("Enq acquiring the lock\n");
+                 pthread_mutex_lock(&(p.lock));
+
 		enqueue(q,task_to_perform,NULL);
 			
 		printf("waking up the enqueue thread\n");
 		pthread_cond_signal(&(p.cond1));
-//		}
 
 
 		printf("Enq releasing lock\n");
 		pthread_mutex_unlock(&(p.lock));
-
+		sleep(10);
 	}
+	
 }
 
 pthread_t enq_funct(qu_t *q)
