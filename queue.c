@@ -5,7 +5,7 @@
 
 
 //function to initialize front and rear pointer as NULL
-void init(qu_t *q)
+void init_que(qu_t *q)
 {
 	q->front=NULL;    
 	q->rear=NULL;

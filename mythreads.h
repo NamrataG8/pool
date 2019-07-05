@@ -1,13 +1,15 @@
 
 
+int pthread_mutex_lock(pthread_mutex_t *mutex);
 
 typedef struct
 {
 	pthread_mutex_t lock;
 	pthread_cond_t cond1;
-//      qu_t *queue;
+//	pthread_t thread;
+//        qu_t*  queue;
 
-}threadpool_t;
+}pool;
 
 
 typedef void (*operation)(void *);
@@ -35,7 +37,9 @@ typedef struct
 }qu_t;
 
 
-void init(qu_t*);
+void init_que(qu_t*);
+
+//void init_poolque(pool);
 
 void task_to_perform(void*);
 

@@ -5,11 +5,31 @@
 
 void* enq_worker(void *data)
 {
+
+//	threadpool_t *pool;
+//        pool=(threadpool_t*)malloc(threadpool_t); 
+
 	qu_t *q=(qu_t*)data;
+	pool p;
+
+	printf("Enq acquiring the lock\n");
+	pthread_mutex_lock(&(p.lock));
+
 	while(1)
 	{
+//		if(pool->queue->front==NULL)
+//		{
+		
 		enqueue(q,task_to_perform,NULL);
-		sleep(2);
+			
+		printf("waking up the enqueue thread\n");
+		pthread_cond_signal(&(p.cond1));
+//		}
+
+
+		printf("Enq releasing lock\n");
+		pthread_mutex_unlock(&(p.lock));
+
 	}
 }
 
