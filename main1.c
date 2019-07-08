@@ -2,14 +2,8 @@
 #include<stdlib.h>
 #include<unistd.h>
 #include<pthread.h>
-//#include"operation.h"
-//#include"queue.h"
-#include"mythreads.h"
-
-/*void task_to_preform(void *data)
-{
-	printf("Operation\n");
-}*/
+#include"operation.h"
+#include"queue.h"
 
 void* enq_worker(void* data)
 {
@@ -25,7 +19,6 @@ void* enq_worker(void* data)
 void main()
 {
 	fnc_t fn;
-//	fn=(fnc_t*)malloc(sizeof(fnc_t));
 	qu_t *q;
 	q=(qu_t*)malloc(sizeof(qu_t));
 	init_que(q);

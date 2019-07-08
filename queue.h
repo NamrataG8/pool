@@ -1,18 +1,14 @@
-#include"operation.h"
+#ifndef QUEUE_H
+#define QUEUE_H
 
+
+#include"operation.h"
 
 typedef struct node
 {
 	fnc_t fn;
 	struct node *next;
 }node_t;
-
-/*typedef struct
-{
-        operation fvar;
-        void* args;
-}fnc_t;*/
-
 
 typedef struct 
 {
@@ -30,3 +26,4 @@ fnc_t dequeue(qu_t*);
 
 void task_to_perform(void*);
 
+#endif  

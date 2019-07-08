@@ -1,4 +1,5 @@
-
+#ifndef OPERATION_H
+#define OPERATION_H
 
 typedef void(*operation)(void *);
 
@@ -8,6 +9,7 @@ typedef struct
 	void* args;
 }fnc_t;
 
-//void task_to_perform(void*);
+#endif
+
 
 

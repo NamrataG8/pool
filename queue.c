@@ -1,9 +1,8 @@
 #include<pthread.h>
 #include<stdio.h>
 #include<stdlib.h>
-//#include"queue.h"
-//#include"operation.h"
-#include"mythreads.h"
+#include"queue.h"
+#include"operation.h"
 
 //function to initialize front and rear pointer as NULL
 void init_que(qu_t *q)
