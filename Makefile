@@ -1,5 +1,5 @@
-que: enqthread.c main1.c queue.c
-	gcc -g  -o que main1.c queue.c -I. -lpthread
+que: main.c queue.c
+	gcc -g -Wall -o que main.c queue.c pool.c -I. -lpthread
 
 clean:
 	rm que 
