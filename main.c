@@ -6,9 +6,28 @@
 #include"queue.h"
 #include"pool.h"
 
-void task_to_perform(void *data)
+void even_num(void* data)
 {
-        printf("Operation\n");
+	int d = *(int*)data;
+	for(int i=0;i<d;i++)
+	{
+		if(i%2 == 0)
+		{
+			printf("%d\n",i);
+		}
+	}
+}
+
+void odd_num(void* data)
+{        
+	int *d = (int*)data;
+	for(int i=0;i<*d;i++)
+	{
+		if(i%2 != 0)
+		{
+			printf("%d\n",i);
+		}
+	}
 }
 
 
@@ -17,6 +36,7 @@ int main()
 {
 
 	pool_t *p;
+	int itr = 50;
 	unsigned int n;
 	p = (pool_t*)malloc(sizeof(pool_t));
 	if(p == NULL)
@@ -28,13 +48,14 @@ int main()
 
 	init_pool(p,n);
 	
-	while(1)
-	{
 		sleep(2);
-		printf("submit function\n");
-		submit(p,task_to_perform,NULL);
-	}
-
+		printf("submit even function\n");
+		//submit(p,task_to_perform,NULL);
+		submit(p, even_num, &itr);
+		printf("Submit odd function\n");
+		submit(p, odd_num, &itr);
+	
+	wait_pool(p);
 	deinit_pool(p);
 	return 0;
 }
