@@ -6,14 +6,18 @@
 void* deq_worker(void *data)
 {
         fnc_t fn;
-
         pool_t *p=(pool_t*)data;
+
     
         while(1)
         {
         	pthread_mutex_lock(&(p->lock));
 
-                pthread_cond_wait(&(p->cv),&(p->lock)); 
+
+	        while(isque_empty(&(p->q)))
+		{
+               		pthread_cond_wait(&(p->cv),&(p->lock)); 
+		}
 
                 fn=dequeue(&(p->q));
 
@@ -65,7 +69,9 @@ int submit(pool_t *p,const operation op,void *data)
 {
 	int ret;
 	pthread_mutex_lock(&(p->lock));
+
 	ret=enqueue(&(p->q), op, data);
+
 	pthread_cond_signal(&(p->cv));
 
 	pthread_mutex_unlock(&(p->lock));
@@ -74,6 +80,7 @@ int submit(pool_t *p,const operation op,void *data)
 
 void wait_pool(pool_t *p)
 {
+	while(1);
 }
 
 

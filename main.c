@@ -30,8 +30,6 @@ void odd_num(void* data)
 	}
 }
 
-
-
 int main()
 {
 
@@ -48,12 +46,11 @@ int main()
 
 	init_pool(p,n);
 	
-		sleep(2);
-		printf("submit even function\n");
-		//submit(p,task_to_perform,NULL);
-		submit(p, even_num, &itr);
-		printf("Submit odd function\n");
-		submit(p, odd_num, &itr);
+	sleep(2);
+	printf("submit even function\n");
+	submit(p, even_num, &itr);
+	printf("Submit odd function\n");
+	submit(p, odd_num, &itr);
 	
 	wait_pool(p);
 	deinit_pool(p);

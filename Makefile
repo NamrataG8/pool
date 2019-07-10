@@ -1,5 +1,7 @@
-que: main.c queue.c
-	gcc -g -Wall -o que main.c queue.c pool.c -I. -lpthread
-
+SRC = main.c queue.c pool.c
+CFLAGS = -g -Wall -I. -lpthread 
+BIN = que 
+que: ${SRC}
+	gcc -o ${BIN} ${SRC}  ${CFLAGS}
 clean:
-	rm que 
+	- rm -f  ${BIN} 

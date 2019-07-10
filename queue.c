@@ -11,6 +11,22 @@ void init_que(qu_t *q)
 	q->rear=NULL;
 }
 
+int isque_empty(qu_t *q)
+{
+	int ret;
+
+	if(q->front == NULL)
+	{
+		ret = 1;  //if queue is empty
+	}
+	else
+	{
+		ret = 0;  //if queue is not empty
+	}
+	return ret;
+}
+
+
 int enqueue(qu_t *q,const operation f_var, void *data) 
 {
 	node_t *newnode;

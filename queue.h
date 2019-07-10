@@ -20,6 +20,8 @@ void init_que(qu_t*);
 
 void clear(qu_t*);
 
+int isque_empty(qu_t*);
+
 int enqueue(qu_t*,const operation,void*);
 
 fnc_t dequeue(qu_t*);
