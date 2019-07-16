@@ -3,16 +3,23 @@
 #include"pool.h"
 #include<stdlib.h>
 
+//int flag = 0;
 void* deq_worker(void *data)
 {
+	
+	printf("inside deq_worker,1\n");
         fnc_t fn;
         pool_t *p=(pool_t*)data;
 
-    
-        while(1)
-        {
-        	pthread_mutex_lock(&(p->lock));
+	//int ret = isque_empty(&p->q); 
+        //printf("ret=%d, count=%d\n", ret, count);
+        //while((isque_empty(&p->q) == 0) && (count <= p->num_threads))	
 
+	while((isque_empty(&p->q) == 0) && (p->flag == 1))
+        {
+
+		printf("inside while loop\n");
+        	pthread_mutex_lock(&(p->lock));
 
 	        while(isque_empty(&(p->q)))
 		{
@@ -31,7 +38,10 @@ void* deq_worker(void *data)
                 {
                         fn.fvar(fn.args);
                 }
-        }
+	}
+	
+return 0;
+	
 }
 
 int init_pool(pool_t* p,unsigned int n)
@@ -54,11 +64,21 @@ int init_pool(pool_t* p,unsigned int n)
 		}
 	
 	}
+	
 	return ret;
 }
 
 void deinit_pool(pool_t* p)
 {
+	p->flag = 0;	
+	for(int i=0; i < p->num_threads; i++)
+	{
+		p->flag = 1;
+		printf("in deinit : flag  =%d\n",p->flag);
+		pthread_join(p->threads[i],NULL);
+
+	}
+
 	if(p->threads != NULL)
 	{
 		free(p->threads);
@@ -78,10 +98,6 @@ int submit(pool_t *p,const operation op,void *data)
 	return ret;
 }
 
-void wait_pool(pool_t *p)
-{
-	while(1);
-}
 
 
 

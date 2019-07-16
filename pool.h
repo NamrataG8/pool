@@ -10,6 +10,7 @@ typedef struct
 	qu_t q;
 	pthread_t *threads;
 	unsigned int num_threads;
+	int flag;
 	
 }pool_t;
 
@@ -19,7 +20,6 @@ void deinit_pool(pool_t*);
 
 int submit(pool_t*,const operation, void*);
 
-void wait_pool(pool_t*);
 
 
 #endif

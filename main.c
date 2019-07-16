@@ -32,7 +32,6 @@ void odd_num(void* data)
 
 int main()
 {
-
 	pool_t *p;
 	int itr = 50;
 	unsigned int n;
@@ -46,13 +45,12 @@ int main()
 
 	init_pool(p,n);
 	
-	sleep(2);
+//	sleep(2);
 	printf("submit even function\n");
 	submit(p, even_num, &itr);
 	printf("Submit odd function\n");
 	submit(p, odd_num, &itr);
 	
-	wait_pool(p);
 	deinit_pool(p);
 	return 0;
 }
