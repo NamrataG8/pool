@@ -14,6 +14,7 @@ void even_num(void* data)
 		if(i%2 == 0)
 		{
 			printf("%d\n",i);
+			sleep(1);
 		}
 	}
 }
@@ -26,6 +27,7 @@ void odd_num(void* data)
 		if(i%2 != 0)
 		{
 			printf("%d\n",i);
+			sleep(1);
 		}
 	}
 }
@@ -33,7 +35,7 @@ void odd_num(void* data)
 int main()
 {
 	pool_t *p;
-	int itr = 50;
+	int itr = 30;
 	unsigned int n;
 	p = (pool_t*)malloc(sizeof(pool_t));
 	if(p == NULL)
