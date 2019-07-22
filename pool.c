@@ -2,43 +2,50 @@
 #include<pthread.h>
 #include"pool.h"
 #include<stdlib.h>
+#include<signal.h>
+
+void sig_handler(int signum)
+{
+        printf("Inside SIGINT handler , signal no.=%d\n",signum);
+}
 
 void* deq_worker(void *data)
 {
-	
-        fnc_t fn;
-        pool_t *p=(pool_t*)data;
-	
+
+	fnc_t fn;
+	pool_t *p=(pool_t*)data;
+
 	while(!((p->flag) && (isque_empty(&p->q))))
-        {
+	{
 
-        	pthread_mutex_lock(&(p->lock));
+		pthread_mutex_lock(&(p->lock));
 
-	        while(isque_empty(&(p->q)) && (p->flag) == 0)
+		while(isque_empty(&(p->q)) && (p->flag) == 0)
 		{
-               		pthread_cond_wait(&(p->cv),&(p->lock)); 
+			pthread_cond_wait(&(p->cv),&(p->lock));
 		}
 
-                fn=dequeue(&(p->q));
+		fn=dequeue(&(p->q));
 
-        	pthread_mutex_unlock(&(p->lock));
+		pthread_mutex_unlock(&(p->lock));
 
-                if(fn.fvar == NULL)
-                {
-                        printf("Not pointing to any function\n");
-                }
-                else
-                {
-                        fn.fvar(fn.args);
-                }
+		if(fn.fvar == NULL)
+		{
+			printf("Not pointing to any function\n");
+		}
+		else
+		{
+			fn.fvar(fn.args);
+		}
 	}
 
 	return NULL;	
-	
+
 }
 
 int init_pool(pool_t* p,unsigned int n)
 {
+	signal(SIGINT,sig_handler);
 	p->flag = 0;
         init_que(&(p->q));
 	p->threads=(pthread_t*)malloc(sizeof(pthread_t)*n);
@@ -63,8 +70,7 @@ int init_pool(pool_t* p,unsigned int n)
 }
 
 void deinit_pool(pool_t* p)
-{
-	
+{	
 
 	pthread_mutex_lock(&p->lock);
 	
