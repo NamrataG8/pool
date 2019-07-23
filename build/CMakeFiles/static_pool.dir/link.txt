@@ -1,0 +1,1 @@
+/usr/bin/cc  -O3 -DNDEBUG   CMakeFiles/static_pool.dir/src/pool.c.o CMakeFiles/static_pool.dir/src/queue.c.o CMakeFiles/static_pool.dir/src/main.c.o  -o static_pool -lpthread 

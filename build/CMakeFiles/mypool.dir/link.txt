@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmypool.a  CMakeFiles/mypool.dir/src/pool.c.o CMakeFiles/mypool.dir/src/queue.c.o CMakeFiles/mypool.dir/src/main.c.o
+/usr/bin/ranlib libmypool.a

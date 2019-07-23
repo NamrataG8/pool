@@ -1,0 +1,4 @@
+/home/span58/Namrata/practice/thpool/pool/build/CMakeFiles/edit_cache.dir
+/home/span58/Namrata/practice/thpool/pool/build/CMakeFiles/rebuild_cache.dir
+/home/span58/Namrata/practice/thpool/pool/build/CMakeFiles/static_pool.dir
+/home/span58/Namrata/practice/thpool/pool/build/CMakeFiles/mypool.dir
